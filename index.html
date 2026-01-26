@@ -739,7 +739,7 @@
                 <h3>考試資訊</h3>
                 <div class="info-row">
                     <span class="info-label">試卷名稱：</span>
-                    <span class="info-value" id="normalInfoName">數學期考</span>
+                    <span class="info-value" id="normalInfoName">中一 數學</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">時間範圍：</span>
@@ -785,6 +785,7 @@
                 <div class="preset-name-buttons">
                     <button class="preset-name-btn" data-name="中 普通英文">中 普通英文</button>
                     <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
+                    <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
                     <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
@@ -831,6 +832,7 @@
                 <div class="preset-name-buttons">
                     <button class="preset-name-btn" data-name="中 普通英文">中 普通英文</button>
                     <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
+                    <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
                     <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
@@ -891,19 +893,17 @@
     <script>
         // ========== 預設試卷名稱 ==========
         // 【在此修改預設試卷名稱】
-        const PRESET_NAMES_NORMAL = ['數學期考', '英文期考', '中文期考', '科學期考'];
+        const PRESET_NAMES_NORMAL = ['中 普通英文', '中 中文閱讀', '中 數學卷一', '中 科學'];
         const PRESET_NAMES_SPECIAL = [
-            '3A班 數學', '3B班 數學',
-            '3A班 英文', '3B班 英文',
-            '3A班 中文', '3B班 中文',
-            '3A班 科學', '3B班 科學'
+            '中 普通英文', '中 中文閱讀',
+            '中 數學卷一', '中 科學',
         ];
 
         // ========== 狀態管理 ==========
         const state = {
             mode: 'normal',
             normal: {
-                name: '數學期考',
+                name: '中一 數學卷一',
                 duration: 60,
                 startTime: null,
                 isRunning: false,
