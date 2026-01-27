@@ -248,7 +248,8 @@
         }
 
         .exam-card.completed {
-            animation: pulse 2s infinite;
+            background-color: rgba(22, 163, 74, 0.1) !important;
+            border-color: var(--success-color) !important;
         }
 
         /* 顏色編碼類 */
@@ -694,14 +695,10 @@
             }
         }
 
-        /* ============ 完成狀態動畫 ============ */
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-
+        /* ============ 完成狀態樣式 ============ */
         .exam-card.completed {
-            animation: pulse 2s infinite;
+            background-color: rgba(22, 163, 74, 0.1) !important;
+            border-color: var(--success-color) !important;
         }
     </style>
 </head>
