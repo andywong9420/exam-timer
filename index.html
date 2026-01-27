@@ -240,8 +240,8 @@
 
         .exam-card:hover {
             box-shadow: var(--card-shadow-hover);
-            transform: translateY(-2px);
         }
+</parameter>
 
         .exam-card.running {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
@@ -309,7 +309,10 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 3px;
             font-variant-numeric: tabular-nums;
+            pointer-events: none;
+            user-select: none;
         }
+</parameter>
 
         .exam-card .card-info {
             font-size: 0.9rem;
@@ -419,11 +422,14 @@
         .modal-content {
             background: white;
             border-radius: 12px;
-            padding: 30px;
+            padding: 20px;
             max-width: 500px;
             width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
             box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
         }
+</parameter>
 
         .modal-header {
             font-size: 1.5rem;
@@ -475,20 +481,23 @@
         .preset-name-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 10px;
+            max-height: 120px;
+            overflow-y: auto;
         }
 
         .preset-name-btn {
-            padding: 10px;
+            padding: 8px;
             background: var(--neutral-bg);
             border: 2px solid var(--neutral-border);
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
+</parameter>
 
         .preset-name-btn:hover {
             border-color: var(--primary-light);
@@ -686,8 +695,14 @@
 
             .preset-name-buttons {
                 grid-template-columns: 1fr;
+                max-height: 150px;
+            }
+
+            .modal-content {
+                max-height: 90vh;
             }
         }
+</parameter>
 
         /* ============ 完成狀態動畫 ============ */
         @keyframes pulse {
@@ -787,7 +802,7 @@
                     <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
                     <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
-                    <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
+                    <button class="preset-name-btn" data-name="中 中文寫作">中 中文寫作</button>
                     <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
                     <button class="preset-name-btn" data-name="中 數學卷二">中 數學卷二</button>
                     <button class="preset-name-btn" data-name="中 科學">中 科學</button>
@@ -797,7 +812,7 @@
                     <button class="preset-name-btn" data-name="中 地理">中 地理</button>
                     <button class="preset-name-btn" data-name="中三 策略與管理">中三 策略與管理</button>
                 </div>
-                <input type="text" id="normalEditName" placeholder="例：中一 數學">
+                <input type="text" id="normalEditName" placeholder="例：中一 數學卷一">
             </div>
 
             <div class="form-group">
@@ -834,7 +849,7 @@
                     <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
                     <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
                     <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
-                    <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
+                    <button class="preset-name-btn" data-name="中 中文寫作">中 中文寫作</button>
                     <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
                     <button class="preset-name-btn" data-name="中 數學卷二">中 數學卷二</button>
                     <button class="preset-name-btn" data-name="中 科學">中 科學</button>
@@ -844,7 +859,7 @@
                     <button class="preset-name-btn" data-name="中 地理">中 地理</button>
                     <button class="preset-name-btn" data-name="中三 策略與管理">中三 策略與管理</button>
                 </div>
-                <input type="text" id="specialEditName" placeholder="例：中一 數學">
+                <input type="text" id="specialEditName" placeholder="例：中一 數學卷一">
             </div>
 
             <div class="form-group">
@@ -896,7 +911,7 @@
         const PRESET_NAMES_NORMAL = ['中 普通英文', '中 中文閱讀', '中 數學卷一', '中 科學'];
         const PRESET_NAMES_SPECIAL = [
             '中 普通英文', '中 中文閱讀',
-            '中 數學卷一', '中 科學',
+            '中 數學卷一', '中 科學'
         ];
 
         // ========== 狀態管理 ==========
@@ -1144,9 +1159,10 @@
             const { id, name, duration, startTime, isRunning, colorIndex } = exam;
             const remainingSeconds = calculateRemainingSeconds(duration * 60, startTime, isRunning);
 
-            const minutes = Math.floor(remainingSeconds / 60);
-            const seconds = remainingSeconds % 60;
-            const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            const hours = Math.floor(remainingSeconds / 3600);
+            const minutes = Math.floor((remainingSeconds % 3600) / 60);
+            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+</parameter>
 
             const [timeRange, status] = getTimeRangeAndStatus(duration, startTime, isRunning);
 
@@ -1313,9 +1329,10 @@
                 const { name, duration, startTime, isRunning } = exam;
                 const remainingSeconds = calculateRemainingSeconds(duration * 60, startTime, isRunning);
 
-                const minutes = Math.floor(remainingSeconds / 60);
-                const seconds = remainingSeconds % 60;
-                const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                const hours = Math.floor(remainingSeconds / 3600);
+                const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+</parameter>
 
                 const [timeRange, status] = getTimeRangeAndStatus(duration, startTime, isRunning);
 
