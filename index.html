@@ -1123,19 +1123,54 @@
             renderSpecialExams();
         }
 
-        function renderSpecialExams() {
+        function renderSpecialExams(updateOnly = false) {
             const grid = document.getElementById('examGrid');
-            grid.innerHTML = '';
 
-            if (state.special.exams.length === 0) {
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">未添加任何試卷，點擊「新增試卷」開始</p>';
-                return;
+            if (!updateOnly) {
+                grid.innerHTML = '';
+
+                if (state.special.exams.length === 0) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">未添加任何試卷，點擊「新增試卷」開始</p>';
+                    return;
+                }
+
+                state.special.exams.forEach(exam => {
+                    const card = createExamCard(exam);
+                    grid.appendChild(card);
+                });
+            } else {
+                // 只更新時間和狀態，不重新渲染整個卡片
+                state.special.exams.forEach(exam => {
+                    const card = document.querySelector(`[data-exam-id="${exam.id}"]`);
+                    if (card) {
+                        const remainingSeconds = calculateRemainingSeconds(exam.duration * 60, exam.startTime, exam.isRunning);
+                        const hours = Math.floor(remainingSeconds / 3600);
+                        const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                        const seconds = remainingSeconds % 60;
+                        const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                        
+                        const timeElement = card.querySelector('.card-time');
+                        if (timeElement) timeElement.textContent = timeStr;
+
+                        const [timeRange, status] = getTimeRangeAndStatus(exam.duration, exam.startTime, exam.isRunning);
+                        const infoLines = card.querySelectorAll('.card-info div');
+                        if (infoLines[0]) infoLines[0].textContent = `時間：${timeRange}`;
+                        if (infoLines[1]) infoLines[1].textContent = `時長：${exam.duration} 分鐘`;
+
+                        const statusBadge = card.querySelector('.status-badge');
+                        const isCompleted = remainingSeconds === 0 && exam.duration * 60 !== exam.totalSeconds;
+                        const statusBadgeClass = exam.isRunning ? 'running' : (isCompleted ? 'completed' : 'not-started');
+                        const statusBadgeText = exam.isRunning ? '進行中' : (isCompleted ? '已完成' : '未開始');
+                        
+                        if (statusBadge) {
+                            statusBadge.className = `status-badge ${statusBadgeClass}`;
+                            statusBadge.textContent = statusBadgeText;
+                        }
+
+                        card.className = `exam-card color-${exam.colorIndex} ${exam.isRunning ? 'running' : ''} ${isCompleted ? 'completed' : ''}`;
+                    }
+                });
             }
-
-            state.special.exams.forEach(exam => {
-                const card = createExamCard(exam);
-                grid.appendChild(card);
-            });
 
             updateFullscreenSpecialContent();
         }
@@ -1154,6 +1189,7 @@
             const card = document.createElement('div');
             const isCompleted = remainingSeconds === 0 && duration * 60 !== exam.totalSeconds;
             card.className = `exam-card color-${colorIndex} ${isRunning ? 'running' : ''} ${isCompleted ? 'completed' : ''}`;
+            card.setAttribute('data-exam-id', id);
 
             const statusBadgeClass = isRunning ? 'running' : (isCompleted ? 'completed' : 'not-started');
             const statusBadgeText = isRunning ? '進行中' : (isCompleted ? '已完成' : '未開始');
@@ -1378,7 +1414,7 @@
                             document.getElementById('normalTimer').textContent;
                     }
                 } else {
-                    renderSpecialExams();
+                    renderSpecialExams(true);
                 }
             }, 100);
         }
