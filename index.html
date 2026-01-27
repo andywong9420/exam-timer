@@ -240,8 +240,8 @@
 
         .exam-card:hover {
             box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
         }
-</parameter>
 
         .exam-card.running {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
@@ -309,10 +309,7 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 3px;
             font-variant-numeric: tabular-nums;
-            pointer-events: none;
-            user-select: none;
         }
-</parameter>
 
         .exam-card .card-info {
             font-size: 0.9rem;
@@ -413,6 +410,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .modal.active {
@@ -422,32 +420,19 @@
         .modal-content {
             background: white;
             border-radius: 12px;
-            padding: 20px;
+            padding: 30px;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
             max-height: 85vh;
             overflow-y: auto;
             box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
         }
-</parameter>
 
         .modal-header {
             font-size: 1.5rem;
             font-weight: bold;
             margin-bottom: 20px;
             color: var(--text-dark);
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
-            position: relative;
         }
 
         .modal-close {
@@ -459,16 +444,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-light);
-            z-index: 1001;
-            padding: 5px 10px;
-            transition: all 0.2s ease;
         }
-
-        .modal-close:hover {
-            color: var(--text-dark);
-            transform: scale(1.2);
-        }
-</parameter>
 
         .form-group {
             margin-bottom: 15px;
@@ -502,23 +478,22 @@
         .preset-name-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-            max-height: 120px;
+            gap: 10px;
+            margin-bottom: 15px;
+            max-height: 200px;
             overflow-y: auto;
         }
 
         .preset-name-btn {
-            padding: 8px;
+            padding: 10px;
             background: var(--neutral-bg);
             border: 2px solid var(--neutral-border);
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             transition: all 0.2s ease;
         }
-</parameter>
 
         .preset-name-btn:hover {
             border-color: var(--primary-light);
@@ -716,14 +691,8 @@
 
             .preset-name-buttons {
                 grid-template-columns: 1fr;
-                max-height: 150px;
-            }
-
-            .modal-content {
-                max-height: 90vh;
             }
         }
-</parameter>
 
         /* ============ 完成狀態動畫 ============ */
         @keyframes pulse {
@@ -755,7 +724,7 @@
         <div class="normal-mode active">
             <div class="timer-display">
                 <h2 id="normalExamName">考試名稱</h2>
-                <div class="time" id="normalTimer">00:00:00</div>
+                <div class="time" id="normalTimer">00:00</div>
                 <div class="exam-name" id="normalTimeRange">未開始</div>
             </div>
 
@@ -775,7 +744,7 @@
                 <h3>考試資訊</h3>
                 <div class="info-row">
                     <span class="info-label">試卷名稱：</span>
-                    <span class="info-value" id="normalInfoName">數學期考</span>
+                    <span class="info-value" id="normalInfoName">中一 數學</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">時間範圍：</span>
@@ -819,12 +788,21 @@
             <div class="form-group">
                 <label>試卷名稱</label>
                 <div class="preset-name-buttons">
-                    <button class="preset-name-btn" data-name="數學期考">數學期考</button>
-                    <button class="preset-name-btn" data-name="英文期考">英文期考</button>
-                    <button class="preset-name-btn" data-name="中文期考">中文期考</button>
-                    <button class="preset-name-btn" data-name="科學期考">科學期考</button>
+                    <button class="preset-name-btn" data-name="中 普通英文">中 普通英文</button>
+                    <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
+                    <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
+                    <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
+                    <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
+                    <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
+                    <button class="preset-name-btn" data-name="中 數學卷二">中 數學卷二</button>
+                    <button class="preset-name-btn" data-name="中 科學">中 科學</button>
+                    <button class="preset-name-btn" data-name="中 歷史">中 歷史</button>
+                    <button class="preset-name-btn" data-name="中 中國歷史">中 中國歷史</button>
+                    <button class="preset-name-btn" data-name="中 公民、經濟與社會">中 公民</button>
+                    <button class="preset-name-btn" data-name="中 地理">中 地理</button>
+                    <button class="preset-name-btn" data-name="中三 策略與管理">中三 策略與管理</button>
                 </div>
-                <input type="text" id="normalEditName" placeholder="例：數學期考">
+                <input type="text" id="normalEditName" placeholder="例：中一 數學">
             </div>
 
             <div class="form-group">
@@ -833,6 +811,7 @@
                     <button class="preset-btn" data-duration="30">30分</button>
                     <button class="preset-btn" data-duration="45">45分</button>
                     <button class="preset-btn" data-duration="60">60分</button>
+                    <button class="preset-btn" data-duration="75">75分</button>
                     <button class="preset-btn" data-duration="90">90分</button>
                     <button class="preset-btn" data-duration="120">120分</button>
                     <button class="preset-btn" data-duration="custom">自訂</button>
@@ -856,16 +835,21 @@
             <div class="form-group">
                 <label>試卷名稱</label>
                 <div class="preset-name-buttons">
-                    <button class="preset-name-btn" data-name="3A班 數學">3A班 數學</button>
-                    <button class="preset-name-btn" data-name="3B班 數學">3B班 數學</button>
-                    <button class="preset-name-btn" data-name="3A班 英文">3A班 英文</button>
-                    <button class="preset-name-btn" data-name="3B班 英文">3B班 英文</button>
-                    <button class="preset-name-btn" data-name="3A班 中文">3A班 中文</button>
-                    <button class="preset-name-btn" data-name="3B班 中文">3B班 中文</button>
-                    <button class="preset-name-btn" data-name="3A班 科學">3A班 科學</button>
-                    <button class="preset-name-btn" data-name="3B班 科學">3B班 科學</button>
+                    <button class="preset-name-btn" data-name="中 普通英文">中 普通英文</button>
+                    <button class="preset-name-btn" data-name="中 英文寫作">中 英文寫作</button>
+                    <button class="preset-name-btn" data-name="中 英文閱讀">中 英文閱讀</button>
+                    <button class="preset-name-btn" data-name="中 中文閱讀">中 中文閱讀</button>
+                    <button class="preset-name-btn" data-name="中 中文寫作">中文寫作</button>
+                    <button class="preset-name-btn" data-name="中 數學卷一">中 數學卷一</button>
+                    <button class="preset-name-btn" data-name="中 數學卷二">中 數學卷二</button>
+                    <button class="preset-name-btn" data-name="中 科學">中 科學</button>
+                    <button class="preset-name-btn" data-name="中 歷史">中 歷史</button>
+                    <button class="preset-name-btn" data-name="中 中國歷史">中 中國歷史</button>
+                    <button class="preset-name-btn" data-name="中 公民、經濟與社會">中 公民</button>
+                    <button class="preset-name-btn" data-name="中 地理">中 地理</button>
+                    <button class="preset-name-btn" data-name="中三 策略與管理">中三 策略與管理</button>
                 </div>
-                <input type="text" id="specialEditName" placeholder="例：3A班 數學">
+                <input type="text" id="specialEditName" placeholder="例：中一 數學">
             </div>
 
             <div class="form-group">
@@ -874,6 +858,7 @@
                     <button class="preset-btn" data-duration="30">30分</button>
                     <button class="preset-btn" data-duration="45">45分</button>
                     <button class="preset-btn" data-duration="60">60分</button>
+                    <button class="preset-btn" data-duration="75">75分</button>
                     <button class="preset-btn" data-duration="90">90分</button>
                     <button class="preset-btn" data-duration="120">120分</button>
                     <button class="preset-btn" data-duration="custom">自訂</button>
@@ -894,7 +879,7 @@
 
         <!-- 普通模式全屏 -->
         <div id="fullscreenNormalContent" style="text-align: center; width: 100%;">
-            <div class="fullscreen-timer" id="fullscreenNormalTimer">00:00:00</div>
+            <div class="fullscreen-timer" id="fullscreenNormalTimer">00:00</div>
             <div style="font-size: 2rem; margin-top: 40px;">
                 <div id="fullscreenNormalName" style="margin-bottom: 20px;">考試名稱</div>
             </div>
@@ -912,20 +897,17 @@
 
     <script>
         // ========== 預設試卷名稱 ==========
-        // 【在此修改預設試卷名稱】
-        const PRESET_NAMES_NORMAL = ['數學期考', '英文期考', '中文期考', '科學期考'];
+        const PRESET_NAMES_NORMAL = ['中 普通英文', '中 中文閱讀', '中 數學卷一', '中 科學'];
         const PRESET_NAMES_SPECIAL = [
-            '3A班 數學', '3B班 數學',
-            '3A班 英文', '3B班 英文',
-            '3A班 中文', '3B班 中文',
-            '3A班 科學', '3B班 科學'
+            '中 普通英文', '中 中文閱讀',
+            '中 數學卷一', '中 科學',
         ];
 
         // ========== 狀態管理 ==========
         const state = {
             mode: 'normal',
             normal: {
-                name: '數學期考',
+                name: '中一 數學卷一',
                 duration: 60,
                 startTime: null,
                 isRunning: false,
@@ -1046,7 +1028,6 @@
             const hours = Math.floor(remainingSeconds / 3600);
             const minutes = Math.floor((remainingSeconds % 3600) / 60);
             const seconds = remainingSeconds % 60;
-
             const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
             document.getElementById('normalTimer').textContent = timeStr;
@@ -1168,8 +1149,8 @@
 
             const hours = Math.floor(remainingSeconds / 3600);
             const minutes = Math.floor((remainingSeconds % 3600) / 60);
-            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-</parameter>
+            const seconds = remainingSeconds % 60;
+            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
             const [timeRange, status] = getTimeRangeAndStatus(duration, startTime, isRunning);
 
@@ -1338,8 +1319,8 @@
 
                 const hours = Math.floor(remainingSeconds / 3600);
                 const minutes = Math.floor((remainingSeconds % 3600) / 60);
-                const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-</parameter>
+                const seconds = remainingSeconds % 60;
+                const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
                 const [timeRange, status] = getTimeRangeAndStatus(duration, startTime, isRunning);
 
